@@ -1,6 +1,6 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { FaXTwitter } from 'react-icons/fa6';
+import { Image_Component } from '.';
 
 // menu list items data
 const menuListItems = [
@@ -85,8 +85,8 @@ export default function LeftBar() {
                             className='p-3 rounded-full hover:bg-[#181818] transition-colors 
                             duration-150 flex items-center gap-4'
                         >
-                            <Image
-                                src={`icons/${item.icon}`}
+                            <Image_Component
+                                path={`icons/${item.icon}`}
                                 alt={item.name}
                                 width={24}
                                 height={24}
@@ -101,7 +101,12 @@ export default function LeftBar() {
                     href='/'
                     className='bg-white text-black rounded-full w-12 h-12 flex items-center justify-center 2xl:hidden'
                 >
-                    <Image src='icons/post.svg' alt='Button_Create_Post' width={24} height={24} />
+                    <Image_Component
+                        path='icons/post.svg'
+                        alt='Button_Create_Post'
+                        width={24}
+                        height={24}
+                    />
                 </Link>
                 <Link
                     href='/'
@@ -121,7 +126,13 @@ export default function LeftBar() {
                 <div className='flex items-center gap-3'>
                     {/* Avatar */}
                     <div className='w-10 h-10 relative rounded-full overflow-hidden'>
-                        <Image src='/general/cr7.png' alt='Avatar_User' fill />
+                        <Image_Component
+                            path='/general/cr7.png'
+                            alt='Avatar_User'
+                            width={100}
+                            height={100}
+                            transformations={true}
+                        />
                     </div>
 
                     {/* User info */}
