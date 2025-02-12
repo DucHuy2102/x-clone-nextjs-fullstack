@@ -1,8 +1,30 @@
 import { Image_Component, PostInfo } from '.';
 import { AiOutlineRetweet } from 'react-icons/ai';
 import PostInteraction from './PostInteraction';
+import { imagekit } from '@/utils';
 
-export default function Post() {
+interface IFileDetailsResponse {
+    width: number;
+    height: number;
+    filePath: string;
+    url: string;
+    fileType: string;
+    customMetadata?: { sensitive: boolean };
+}
+
+export default async function Post() {
+    // const getFileDetails = async (fileId: string): Promise<IFileDetailsResponse> => {
+    //     return new Promise((resolve, reject) => {
+    //         imagekit.getFileDetails(fileId, (error, result) => {
+    //             if (error) reject(error);
+    //             else resolve(result as IFileDetailsResponse);
+    //         });
+    //     });
+    // };
+
+    // const fileDetails = await getFileDetails('67ab91c2432c476416ba9d69');
+    // console.log(fileDetails);
+
     return (
         <div className='p-4 border-y-[1px] border-borderGray'>
             {/* Type of post */}
