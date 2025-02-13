@@ -9,7 +9,7 @@ export const shareAction = async (
         sensitive: boolean;
     }
 ) => {
-    const desc = formData.get('post_Description') as string;
+    // const desc = formData.get('post_Description') as string;
     const file = formData.get('post_Media') as File;
 
     const bytes = await file.arrayBuffer();
@@ -24,9 +24,11 @@ export const shareAction = async (
             file: buffer,
             fileName: file.name,
             folder: '/posts',
-            transformation: {
-                pre: transformation,
-            },
+            ...(file.type.includes('image') && {
+                transformation: {
+                    pre: transformation,
+                },
+            }),
             customMetadata: {
                 sensitive: settings.sensitive,
             },

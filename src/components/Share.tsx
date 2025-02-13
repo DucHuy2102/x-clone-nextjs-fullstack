@@ -18,14 +18,17 @@ export default function Share() {
         sensitive: false,
     });
 
+    // function to handle media change event
     const handleMediaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             setMedia(e.target.files[0]);
         }
     };
 
+    // preview media (image or video)
     const previewMedia = media ? URL.createObjectURL(media) : null;
 
+    // function to handle post event (submit form)
     const handlePost = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!media) {
@@ -66,8 +69,8 @@ export default function Share() {
                     className='bg-transparent text-xl h-10 outline-none placeholder:text-textGray'
                 />
 
-                {/* Preview media */}
-                {previewMedia && (
+                {/* Preview image */}
+                {media?.type.includes('image') && previewMedia && (
                     <div className='overflow-hidden rounded-xl relative'>
                         <Image
                             src={previewMedia}
@@ -83,18 +86,32 @@ export default function Share() {
                             }`}
                         />
                         <button
+                            onClick={() => setClickedEditMedia(true)}
+                            className='absolute top-2 left-2 bg-black bg-opacity-50 
+                        text-white py-1.5 px-4 rounded-full font-bold text-sm'
+                        >
+                            Edit
+                        </button>
+                        <button
                             onClick={() => setMedia(null)}
                             className='absolute top-2 right-2 bg-black bg-opacity-50 
                         text-white p-2 rounded-full font-bold text-sm'
                         >
                             <IoMdClose />
                         </button>
+                    </div>
+                )}
+
+                {/* Preview video */}
+                {media?.type.includes('video') && previewMedia && (
+                    <div>
+                        <video src={previewMedia} controls />
                         <button
-                            onClick={() => setClickedEditMedia(true)}
-                            className='absolute top-2 left-2 bg-black bg-opacity-50 
-                        text-white py-1.5 px-4 rounded-full font-bold text-sm'
+                            onClick={() => setMedia(null)}
+                            className='absolute top-2 right-2 bg-black bg-opacity-50 
+                        text-white p-2 rounded-full font-bold text-sm'
                         >
-                            Edit
+                            <IoMdClose />
                         </button>
                     </div>
                 )}
@@ -118,6 +135,7 @@ export default function Share() {
                             onChange={handleMediaChange}
                             className='hidden'
                             id='btnClickFile'
+                            accept='image/*, video/*'
                         />
                         <label htmlFor='btnClickFile'>
                             <Image_Component

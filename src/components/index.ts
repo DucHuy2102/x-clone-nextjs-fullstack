@@ -4,6 +4,7 @@ export { default as RightBar } from './RightBar';
 
 // custom components
 export { default as Image_Component } from './Image';
+export { default as Video_Component } from './Video';
 
 // user components
 export { default as Feed } from './Feed';

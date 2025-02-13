@@ -1,4 +1,6 @@
-import { Image_Component, PostInfo } from '.';
+'use server';
+
+import { Image_Component, PostInfo, Video_Component } from '.';
 import { AiOutlineRetweet } from 'react-icons/ai';
 import PostInteraction from './PostInteraction';
 import { imagekit } from '@/utils';
@@ -13,17 +15,17 @@ interface IFileDetailsResponse {
 }
 
 export default async function Post() {
-    // const getFileDetails = async (fileId: string): Promise<IFileDetailsResponse> => {
-    //     return new Promise((resolve, reject) => {
-    //         imagekit.getFileDetails(fileId, (error, result) => {
-    //             if (error) reject(error);
-    //             else resolve(result as IFileDetailsResponse);
-    //         });
-    //     });
-    // };
+    const getFileDetails = async (fileId: string): Promise<IFileDetailsResponse> => {
+        return new Promise((resolve, reject) => {
+            imagekit.getFileDetails(fileId, (error, result) => {
+                if (error) reject(error);
+                else resolve(result as IFileDetailsResponse);
+            });
+        });
+    };
 
-    // const fileDetails = await getFileDetails('67ab91c2432c476416ba9d69');
-    // console.log(fileDetails);
+    const fileDetails = await getFileDetails('67ab91c2432c476416ba9d69');
+    console.log(fileDetails);
 
     return (
         <div className='p-4 border-y-[1px] border-borderGray'>
@@ -64,12 +66,26 @@ export default async function Post() {
                         tempore pariatur ad illo accusantium quod voluptatum repellendus cum quis
                         sit magni nesciunt et distinctio omnis. Atque, distinctio quas.
                     </p>
-                    <Image_Component
+                    {/* <Image_Component
                         path='general/post.jpeg'
                         alt='Post_Image'
                         width={600}
                         height={600}
-                    />
+                    /> */}
+                    {fileDetails && fileDetails.fileType === 'image' ? (
+                        <Image_Component
+                            path={fileDetails.filePath}
+                            alt='Post_Image'
+                            width={fileDetails.width}
+                            height={fileDetails.height}
+                            className={fileDetails.customMetadata?.sensitive ? 'blur-sm' : ''}
+                        />
+                    ) : (
+                        <Video_Component
+                            path={fileDetails.filePath}
+                            className={fileDetails.customMetadata?.sensitive ? 'blur-sm' : ''}
+                        />
+                    )}
                     <PostInteraction />
                 </div>
             </div>

@@ -25,6 +25,7 @@ export default function Image({
         <IKImage
             urlEndpoint={urlEndpoint}
             path={path}
+            lqip={{ active: true, quality: 20 }}
             alt={alt}
             className={className}
             {...(transformations
